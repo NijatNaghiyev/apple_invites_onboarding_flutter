@@ -35,11 +35,11 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   bool _isUserInteracting = false;
 
   Future<void> _startAutoScroll() async {
-    _timer = Timer.periodic(Duration(milliseconds: 500), (timer) {
+    _timer = Timer.periodic(Duration(milliseconds: 250), (timer) {
       if (!_isUserInteracting) {
         _pageController.animateTo(
           _pageController.offset + 30,
-          duration: Duration(milliseconds: 500),
+          duration: Duration(milliseconds: 250),
           curve: Curves.linear,
         );
       }
@@ -116,8 +116,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                   _pageController.position.pixels - details.primaryDelta!,
                 );
               },
-              onHorizontalDragEnd: (details) {
-                _pageController.position.animateTo(
+              onHorizontalDragEnd: (details) async {
+               await _pageController.position.animateTo(
                   _pageController.position.pixels +
                       -details.velocity.pixelsPerSecond.dx * .1,
                   duration: Duration(milliseconds: 500),
